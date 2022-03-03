@@ -1,4 +1,4 @@
-def localProperties = new Properties()
+def localProperties =  new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+    flutterVersionCode = '9'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '1.2'
 }
 
 apply plugin: 'com.android.application'
@@ -43,11 +43,12 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.connectips"
+        applicationId "com.app.jobpauchha"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -65,7 +66,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compile(name: 'eSewaSdk', ext: 'aar')
+    implementation(name: 'eSewaSdk', ext: 'aar')
     implementation "com.android.support:cardview-v7:30.0.0"
     implementation "com.android.support:design:30.0.0"
     implementation 'com.android.support:multidex:2.0.1'

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:connectips/nic_asia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -52,6 +53,16 @@ class MyApp extends StatelessWidget {
                 },
                 icon: Icon(Icons.arrow_right),
                 label: Text("Go To eSewa Payment Android")),
+            const SizedBox(
+              height: 30,
+            ),
+            ElevatedButton.icon(
+                onPressed: () async {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => NicApp()));
+                },
+                icon: const Icon(Icons.arrow_right),
+                label: const Text("Go To NIC Payment Android")),
           ],
         ),
       ),
@@ -61,7 +72,7 @@ class MyApp extends StatelessWidget {
   void eSewaPayAndroid() async {
     String value = "";
 
-    var rng = new Random();
+    var rng = Random();
     var orderId = rng.nextInt(900000) + 100000;
 
     var dataToPass = <String, dynamic>{
@@ -81,9 +92,9 @@ class MyApp extends StatelessWidget {
   //// get tokens for connect ips /////
   getTokens(context) async {
     //TXNAMT in paisa
-    var now = new DateTime.now();
+    var now = DateTime.now();
     var formatter = DateFormat('dd-MM-yyyy');
-    var rng = new Random();
+    var rng = Random();
     var orderId = rng.nextInt(900000) + 100000;
     var formattedDate = formatter.format(now);
     var message =
@@ -99,14 +110,10 @@ class MyApp extends StatelessWidget {
       var jsonString = await http.Response.fromStream(response);
       final connectIpsRes = connectIpsResFromJson(jsonString.body);
       if (connectIpsRes.status == true) {
-        // setState(() {
         print("Tokens : ${connectIpsRes.token.toString()}");
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => ConnectIpsApp(
                 connectIpsRes.token.toString(), orderId.toString())));
-        // tokens = connectIpsRes.token.toString();
-
-        // });
       }
     } else {
       print(response.reasonPhrase);

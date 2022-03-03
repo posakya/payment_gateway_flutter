@@ -113,7 +113,7 @@ class _ConnectIpsAppState extends State<ConnectIpsApp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Connect Ips"),
+          title: const Text("Connect Ips"),
         ),
         body: webview_flutter.WebView(
           javascriptMode: webview_flutter.JavascriptMode.unrestricted,
